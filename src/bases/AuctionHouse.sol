@@ -13,8 +13,8 @@ import {Transfer} from "../lib/Transfer.sol";
 import {Callbacks} from "../lib/Callbacks.sol";
 
 // External libraries
-import {ERC20} from "@solmate-6.7.0/tokens/ERC20.sol";
-import {ReentrancyGuard} from "@solmate-6.7.0/utils/ReentrancyGuard.sol";
+import {ERC20} from "@solmate-6.8.0/tokens/ERC20.sol";
+import {ReentrancyGuard} from "@solmate-6.8.0/utils/ReentrancyGuard.sol";
 
 // Internal dependencies
 import {
@@ -288,7 +288,9 @@ abstract contract AuctionHouse is IAuctionHouse, WithModules, ReentrancyGuard, F
     /// @dev        The function reverts if:
     ///             - The lot ID is invalid
     ///             - The module for the auction type is not installed
-    function getAuctionModuleForId(uint96 lotId_) external view override returns (IAuction) {
+    function getAuctionModuleForId(
+        uint96 lotId_
+    ) external view override returns (IAuction) {
         _isLotValid(lotId_);
 
         return _getAuctionModuleForId(lotId_);
@@ -298,7 +300,9 @@ abstract contract AuctionHouse is IAuctionHouse, WithModules, ReentrancyGuard, F
     /// @dev        The function reverts if:
     ///             - The lot ID is invalid
     ///             - The module for the derivative type is not installed
-    function getDerivativeModuleForId(uint96 lotId_) external view override returns (IDerivative) {
+    function getDerivativeModuleForId(
+        uint96 lotId_
+    ) external view override returns (IDerivative) {
         _isLotValid(lotId_);
 
         return _getDerivativeModuleForId(lotId_);
@@ -312,7 +316,9 @@ abstract contract AuctionHouse is IAuctionHouse, WithModules, ReentrancyGuard, F
     ///
     /// @param lotId_   ID of the auction lot
     /// @return         AuctionModule
-    function _getAuctionModuleForId(uint96 lotId_) internal view returns (AuctionModule) {
+    function _getAuctionModuleForId(
+        uint96 lotId_
+    ) internal view returns (AuctionModule) {
         // Load module, will revert if not installed
         return AuctionModule(_getModuleIfInstalled(lotRouting[lotId_].auctionReference));
     }
@@ -323,7 +329,9 @@ abstract contract AuctionHouse is IAuctionHouse, WithModules, ReentrancyGuard, F
     ///
     /// @param lotId_   ID of the auction lot
     /// @return         DerivativeModule
-    function _getDerivativeModuleForId(uint96 lotId_) internal view returns (DerivativeModule) {
+    function _getDerivativeModuleForId(
+        uint96 lotId_
+    ) internal view returns (DerivativeModule) {
         // Load module, will revert if not installed. Also reverts if no derivative is specified.
         return DerivativeModule(_getModuleIfInstalled(lotRouting[lotId_].derivativeReference));
     }
@@ -361,7 +369,9 @@ abstract contract AuctionHouse is IAuctionHouse, WithModules, ReentrancyGuard, F
     /// @dev        Reverts if the lot ID is invalid
     ///
     /// @param      lotId_  ID of the auction lot
-    function _isLotValid(uint96 lotId_) internal view {
+    function _isLotValid(
+        uint96 lotId_
+    ) internal view {
         if (lotId_ >= lotCounter) revert InvalidLotId(lotId_);
     }
 
@@ -455,7 +465,9 @@ abstract contract AuctionHouse is IAuctionHouse, WithModules, ReentrancyGuard, F
 
     /// @inheritdoc IFeeManager
     /// @dev        Implemented in this contract as it required access to the `onlyOwner` modifier
-    function setProtocol(address protocol_) external override onlyOwner {
+    function setProtocol(
+        address protocol_
+    ) external override onlyOwner {
         _protocol = protocol_;
     }
 
@@ -606,21 +618,18 @@ abstract contract AuctionHouse is IAuctionHouse, WithModules, ReentrancyGuard, F
     /// @param   protocolFee_   The fee charged by the protocol
     /// @param   referrerFee_   The fee charged by the referrer
     /// @param   referrer_      The address of the referrer
-    /// @param   seller_        The address of the seller
     /// @param   quoteToken_    The quote token
     /// @param   amount_        The amount of quote tokens
     function _allocateQuoteFees(
         uint48 protocolFee_,
         uint48 referrerFee_,
         address referrer_,
-        address seller_,
         ERC20 quoteToken_,
         uint256 amount_
     ) internal returns (uint256 totalFees) {
         // Calculate fees for purchase
-        (uint256 toReferrer, uint256 toProtocol) = calculateQuoteFees(
-            protocolFee_, referrerFee_, referrer_ != address(0) && referrer_ != seller_, amount_
-        );
+        (uint256 toReferrer, uint256 toProtocol) =
+            calculateQuoteFees(protocolFee_, referrerFee_, referrer_ != address(0), amount_);
 
         // Update fee balances if non-zero
         if (toReferrer > 0) rewards[referrer_][quoteToken_] += toReferrer;

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity 0.8.19;
 
-import {FixedPointMathLib as Math} from "@solmate-6.7.0/utils/FixedPointMathLib.sol";
+import {FixedPointMathLib as Math} from "@solmate-6.8.0/utils/FixedPointMathLib.sol";
 
 import {Module} from "../../../../src/modules/Modules.sol";
 import {IAuction} from "../../../../src/interfaces/modules/IAuction.sol";
@@ -123,7 +123,9 @@ contract EmpSettleTest is EmpTest {
     //  [X] given the next batch doesn't reach capacity above minimum price
     //   [X] it records settlement as finished with the marginal price as the minimum price
 
-    function _settle(uint256 bidNum_)
+    function _settle(
+        uint256 bidNum_
+    )
         internal
         returns (
             uint256 totalIn_,
@@ -1070,7 +1072,9 @@ contract EmpSettleTest is EmpTest {
         _;
     }
 
-    function _setSettlementComplete(bool complete_) internal {
+    function _setSettlementComplete(
+        bool complete_
+    ) internal {
         _expectedSettlementComplete = complete_;
     }
 

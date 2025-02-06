@@ -68,10 +68,9 @@ interface IFeeManager {
     /// @return     protocol       Fee charged by the protocol
     /// @return     maxReferrerFee  Maximum fee that can be paid to a referrer
     /// @return     maxCuratorFee  Maximum fee that a curator can charge
-    function getFees(Keycode auctionType_)
-        external
-        view
-        returns (uint48 protocol, uint48 maxReferrerFee, uint48 maxCuratorFee);
+    function getFees(
+        Keycode auctionType_
+    ) external view returns (uint48 protocol, uint48 maxReferrerFee, uint48 maxCuratorFee);
 
     /// @notice     Gets the fee for a specific auction type and curator
     ///
@@ -88,7 +87,9 @@ interface IFeeManager {
     /// @notice     Claims the rewards for a specific token and the sender
     ///
     /// @param      token_  Token to claim rewards for
-    function claimRewards(address token_) external;
+    function claimRewards(
+        address token_
+    ) external;
 
     /// @notice     Gets the rewards for a specific recipient and token
     ///
@@ -114,7 +115,9 @@ interface IFeeManager {
     /// @dev        Access controlled: only owner
     ///
     /// @param      protocol_  Address of the protocol
-    function setProtocol(address protocol_) external;
+    function setProtocol(
+        address protocol_
+    ) external;
 
     /// @notice     Gets the protocol address
     function getProtocol() external view returns (address);

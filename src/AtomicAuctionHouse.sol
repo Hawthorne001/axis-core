@@ -7,7 +7,7 @@ import {IAtomicAuctionHouse} from "./interfaces/IAtomicAuctionHouse.sol";
 import {ICallback} from "./interfaces/ICallback.sol";
 
 // External libraries
-import {ERC20} from "@solmate-6.7.0/tokens/ERC20.sol";
+import {ERC20} from "@solmate-6.8.0/tokens/ERC20.sol";
 
 // Internal libaries
 import {Transfer} from "./lib/Transfer.sol";
@@ -117,7 +117,6 @@ contract AtomicAuctionHouse is IAtomicAuctionHouse, AuctionHouse {
                 lotFees[params_.lotId].protocolFee,
                 lotFees[params_.lotId].referrerFee,
                 params_.referrer,
-                routing.seller,
                 ERC20(routing.quoteToken),
                 params_.amount
             );

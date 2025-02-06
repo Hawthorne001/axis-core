@@ -14,7 +14,9 @@ contract AtomicCancelAuctionTest is AtomicAuctionHouseTest {
 
     bytes internal _purchaseAuctionData = abi.encode("");
 
-    modifier givenPayoutMultiplier(uint256 multiplier_) {
+    modifier givenPayoutMultiplier(
+        uint256 multiplier_
+    ) {
         _atomicAuctionModule.setPayoutMultiplier(_lotId, multiplier_);
         _;
     }
@@ -47,12 +49,9 @@ contract AtomicCancelAuctionTest is AtomicAuctionHouseTest {
         _auctionHouse.cancel(_lotId, bytes(""));
     }
 
-    function testReverts_whenUnauthorized(address user_)
-        external
-        whenAuctionTypeIsAtomic
-        whenAtomicAuctionModuleIsInstalled
-        givenLotIsCreated
-    {
+    function testReverts_whenUnauthorized(
+        address user_
+    ) external whenAuctionTypeIsAtomic whenAtomicAuctionModuleIsInstalled givenLotIsCreated {
         vm.assume(user_ != _SELLER);
 
         bytes memory err = abi.encodeWithSelector(IAuctionHouse.NotPermitted.selector, user_);

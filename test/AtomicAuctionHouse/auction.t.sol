@@ -5,7 +5,7 @@ pragma solidity 0.8.19;
 import {AtomicAuctionHouseTest} from "./AuctionHouseTest.sol";
 
 // Mocks
-import {MockERC20} from "@solmate-6.7.0/test/utils/mocks/MockERC20.sol";
+import {MockERC20} from "@solmate-6.8.0/test/utils/mocks/MockERC20.sol";
 import {MockBatchAuctionModule} from "../modules/Auction/MockBatchAuctionModule.sol";
 
 import {IAuctionHouse} from "../../src/interfaces/IAuctionHouse.sol";
@@ -120,11 +120,9 @@ contract AtomicCreateAuctionTest is AtomicAuctionHouseTest {
         _auctionHouse.auction(_routingParams, _auctionParams, _INFO_HASH);
     }
 
-    function test_whenBaseTokenDecimalsAreOutOfBounds_reverts(uint8 decimals_)
-        external
-        whenAuctionTypeIsAtomic
-        whenAtomicAuctionModuleIsInstalled
-    {
+    function test_whenBaseTokenDecimalsAreOutOfBounds_reverts(
+        uint8 decimals_
+    ) external whenAuctionTypeIsAtomic whenAtomicAuctionModuleIsInstalled {
         uint8 decimals = uint8(bound(decimals_, 0, 50));
         vm.assume(decimals < 6 || decimals > 18);
 
@@ -142,11 +140,9 @@ contract AtomicCreateAuctionTest is AtomicAuctionHouseTest {
         _auctionHouse.auction(_routingParams, _auctionParams, _INFO_HASH);
     }
 
-    function test_whenQuoteTokenDecimalsAreOutOfBounds_reverts(uint8 decimals_)
-        external
-        whenAuctionTypeIsAtomic
-        whenAtomicAuctionModuleIsInstalled
-    {
+    function test_whenQuoteTokenDecimalsAreOutOfBounds_reverts(
+        uint8 decimals_
+    ) external whenAuctionTypeIsAtomic whenAtomicAuctionModuleIsInstalled {
         uint8 decimals = uint8(bound(decimals_, 0, 50));
         vm.assume(decimals < 6 || decimals > 18);
 

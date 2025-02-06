@@ -94,11 +94,9 @@ contract DeployBlast is Deploy {
 
     // ========== MODULE DEPLOYMENTS ========== //
 
-    function deployEncryptedMarginalPrice(bytes memory)
-        public
-        override
-        returns (address, string memory)
-    {
+    function deployEncryptedMarginalPrice(
+        bytes memory
+    ) public override returns (address, string memory) {
         // No args used
         console2.log("");
         console2.log("Deploying BlastEMP (Encrypted Marginal Price)");
@@ -126,7 +124,9 @@ contract DeployBlast is Deploy {
         return (address(amEmp), _PREFIX_AUCTION_MODULES);
     }
 
-    function deployFixedPriceSale(bytes memory) public override returns (address, string memory) {
+    function deployFixedPriceSale(
+        bytes memory
+    ) public override returns (address, string memory) {
         // No args used
         console2.log("");
         console2.log("Deploying BlastFPS (Fixed Price Sale)");
@@ -154,7 +154,9 @@ contract DeployBlast is Deploy {
         return (address(amFps), _PREFIX_AUCTION_MODULES);
     }
 
-    function deployFixedPriceBatch(bytes memory) public override returns (address, string memory) {
+    function deployFixedPriceBatch(
+        bytes memory
+    ) public override returns (address, string memory) {
         // No args used
         console2.log("");
         console2.log("Deploying BlastFPB (Fixed Price Batch)");
@@ -182,11 +184,9 @@ contract DeployBlast is Deploy {
         return (address(amFpb), _PREFIX_AUCTION_MODULES);
     }
 
-    function deployAtomicLinearVesting(bytes memory)
-        public
-        override
-        returns (address, string memory)
-    {
+    function deployAtomicLinearVesting(
+        bytes memory
+    ) public override returns (address, string memory) {
         // No args used
         console2.log("");
         console2.log("Deploying BlastLinearVesting (Atomic)");
@@ -217,11 +217,9 @@ contract DeployBlast is Deploy {
         return (address(dmAtomicLinearVesting), _PREFIX_DERIVATIVE_MODULES);
     }
 
-    function deployBatchLinearVesting(bytes memory)
-        public
-        override
-        returns (address, string memory)
-    {
+    function deployBatchLinearVesting(
+        bytes memory
+    ) public override returns (address, string memory) {
         // No args used
         console2.log("");
         console2.log("Deploying LinearVesting (Batch)");

@@ -220,7 +220,9 @@ contract Deploy is Script, WithEnvironment, WithSalts {
         if (saveDeployment) _saveDeployment(chain_);
     }
 
-    function _saveDeployment(string memory chain_) internal {
+    function _saveDeployment(
+        string memory chain_
+    ) internal {
         // Create the deployments folder if it doesn't exist
         if (!vm.isDir("./deployments")) {
             console2.log("Creating deployments directory");
@@ -349,7 +351,9 @@ contract Deploy is Script, WithEnvironment, WithSalts {
 
     // ========== CATALOGUE DEPLOYMENTS ========== //
 
-    function deployAtomicCatalogue(bytes memory) public virtual returns (address, string memory) {
+    function deployAtomicCatalogue(
+        bytes memory
+    ) public virtual returns (address, string memory) {
         // No args used
         console2.log("");
         console2.log("Deploying AtomicCatalogue");
@@ -378,7 +382,9 @@ contract Deploy is Script, WithEnvironment, WithSalts {
         return (address(atomicCatalogue), _PREFIX_DEPLOYMENT_ROOT);
     }
 
-    function deployBatchCatalogue(bytes memory) public virtual returns (address, string memory) {
+    function deployBatchCatalogue(
+        bytes memory
+    ) public virtual returns (address, string memory) {
         // No args used
         console2.log("");
         console2.log("Deploying BatchCatalogue");
@@ -409,11 +415,9 @@ contract Deploy is Script, WithEnvironment, WithSalts {
 
     // ========== AUCTION MODULE DEPLOYMENTS ========== //
 
-    function deployEncryptedMarginalPrice(bytes memory)
-        public
-        virtual
-        returns (address, string memory)
-    {
+    function deployEncryptedMarginalPrice(
+        bytes memory
+    ) public virtual returns (address, string memory) {
         // No args used
         console2.log("");
         console2.log("Deploying EncryptedMarginalPrice");
@@ -444,7 +448,9 @@ contract Deploy is Script, WithEnvironment, WithSalts {
         return (address(amEmp), _PREFIX_AUCTION_MODULES);
     }
 
-    function deployFixedPriceSale(bytes memory) public virtual returns (address, string memory) {
+    function deployFixedPriceSale(
+        bytes memory
+    ) public virtual returns (address, string memory) {
         // No args used
         console2.log("");
         console2.log("Deploying FixedPriceSale");
@@ -473,7 +479,9 @@ contract Deploy is Script, WithEnvironment, WithSalts {
         return (address(amFps), _PREFIX_AUCTION_MODULES);
     }
 
-    function deployFixedPriceBatch(bytes memory) public virtual returns (address, string memory) {
+    function deployFixedPriceBatch(
+        bytes memory
+    ) public virtual returns (address, string memory) {
         // No args used
         console2.log("");
         console2.log("Deploying FixedPriceBatch");
@@ -504,11 +512,9 @@ contract Deploy is Script, WithEnvironment, WithSalts {
 
     // ========== DERIVATIVE MODULE DEPLOYMENTS ========== //
 
-    function deployAtomicLinearVesting(bytes memory)
-        public
-        virtual
-        returns (address, string memory)
-    {
+    function deployAtomicLinearVesting(
+        bytes memory
+    ) public virtual returns (address, string memory) {
         // No args used
         console2.log("");
         console2.log("Deploying LinearVesting (Atomic)");
@@ -537,11 +543,9 @@ contract Deploy is Script, WithEnvironment, WithSalts {
         return (address(dmAtomicLinearVesting), _PREFIX_DERIVATIVE_MODULES);
     }
 
-    function deployBatchLinearVesting(bytes memory)
-        public
-        virtual
-        returns (address, string memory)
-    {
+    function deployBatchLinearVesting(
+        bytes memory
+    ) public virtual returns (address, string memory) {
         // No args used
         console2.log("");
         console2.log("Deploying LinearVesting (Batch)");
@@ -572,17 +576,23 @@ contract Deploy is Script, WithEnvironment, WithSalts {
 
     // ========== HELPER FUNCTIONS ========== //
 
-    function _isAtomicAuctionHouse(string memory deploymentName) internal pure returns (bool) {
+    function _isAtomicAuctionHouse(
+        string memory deploymentName
+    ) internal pure returns (bool) {
         return keccak256(bytes(deploymentName)) == keccak256(_ATOMIC_AUCTION_HOUSE_NAME)
             || keccak256(bytes(deploymentName)) == keccak256(_BLAST_ATOMIC_AUCTION_HOUSE_NAME);
     }
 
-    function _isBatchAuctionHouse(string memory deploymentName) internal pure returns (bool) {
+    function _isBatchAuctionHouse(
+        string memory deploymentName
+    ) internal pure returns (bool) {
         return keccak256(bytes(deploymentName)) == keccak256(_BATCH_AUCTION_HOUSE_NAME)
             || keccak256(bytes(deploymentName)) == keccak256(_BLAST_BATCH_AUCTION_HOUSE_NAME);
     }
 
-    function _isAuctionHouse(string memory deploymentName) internal pure returns (bool) {
+    function _isAuctionHouse(
+        string memory deploymentName
+    ) internal pure returns (bool) {
         return _isAtomicAuctionHouse(deploymentName) || _isBatchAuctionHouse(deploymentName);
     }
 
@@ -629,7 +639,9 @@ contract Deploy is Script, WithEnvironment, WithSalts {
     ///
     /// @param  key_    Key to look for
     /// @return address Returns the address
-    function _getAddressNotZero(string memory key_) internal view returns (address) {
+    function _getAddressNotZero(
+        string memory key_
+    ) internal view returns (address) {
         // Get from the deployed addresses first
         address deployedAddress = deployedTo[key_];
 

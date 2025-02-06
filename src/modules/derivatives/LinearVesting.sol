@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: BSL-1.1
 pragma solidity 0.8.19;
 
-import {ERC20} from "@solmate-6.7.0/tokens/ERC20.sol";
-import {SafeTransferLib} from "@solmate-6.7.0/utils/SafeTransferLib.sol";
+import {ERC20} from "@solmate-6.8.0/tokens/ERC20.sol";
+import {SafeTransferLib} from "@solmate-6.8.0/utils/SafeTransferLib.sol";
 import {ClonesWithImmutableArgs} from
     "@clones-with-immutable-args-1.1.1/ClonesWithImmutableArgs.sol";
-import {FixedPointMathLib} from "@solmate-6.7.0/utils/FixedPointMathLib.sol";
+import {FixedPointMathLib} from "@solmate-6.8.0/utils/FixedPointMathLib.sol";
 import {Base64} from "@openzeppelin-contracts-4.9.2/utils/Base64.sol";
 
 import {Timestamp} from "../../lib/Timestamp.sol";
@@ -44,7 +44,9 @@ contract LinearVesting is DerivativeModule, ILinearVesting, LinearVestingCard {
 
     // ========== MODULE SETUP ========== //
 
-    constructor(address parent_) Module(parent_) LinearVestingCard() {
+    constructor(
+        address parent_
+    ) Module(parent_) LinearVestingCard() {
         // Deploy the clone implementation
         _IMPLEMENTATION = address(new SoulboundCloneERC20());
     }
@@ -61,12 +63,16 @@ contract LinearVesting is DerivativeModule, ILinearVesting, LinearVestingCard {
 
     // ========== MODIFIERS ========== //
 
-    modifier onlyValidTokenId(uint256 tokenId_) {
+    modifier onlyValidTokenId(
+        uint256 tokenId_
+    ) {
         if (tokenMetadata[tokenId_].exists == false) revert InvalidParams();
         _;
     }
 
-    modifier onlyDeployedWrapped(uint256 tokenId_) {
+    modifier onlyDeployedWrapped(
+        uint256 tokenId_
+    ) {
         if (tokenMetadata[tokenId_].wrapped == address(0)) {
             revert InvalidParams();
         }
@@ -291,7 +297,9 @@ contract LinearVesting is DerivativeModule, ILinearVesting, LinearVestingCard {
     }
 
     /// @inheritdoc IDerivative
-    function redeemMax(uint256 tokenId_) external virtual override onlyValidTokenId(tokenId_) {
+    function redeemMax(
+        uint256 tokenId_
+    ) external virtual override onlyValidTokenId(tokenId_) {
         // Determine the redeemable amount
         uint256 redeemableAmount = redeemable(msg.sender, tokenId_);
 
@@ -386,7 +394,9 @@ contract LinearVesting is DerivativeModule, ILinearVesting, LinearVestingCard {
 
     /// @inheritdoc IDerivative
     /// @dev        Not implemented
-    function reclaim(uint256) external virtual override {
+    function reclaim(
+        uint256
+    ) external virtual override {
         revert IDerivative.Derivative_NotImplemented();
     }
 
@@ -499,23 +509,18 @@ contract LinearVesting is DerivativeModule, ILinearVesting, LinearVestingCard {
 
     // ========== VIEW FUNCTIONS ========== //
 
-    function _getTokenMetadata(uint256 tokenId_)
-        internal
-        view
-        returns (ERC20, VestingParams memory)
-    {
+    function _getTokenMetadata(
+        uint256 tokenId_
+    ) internal view returns (ERC20, VestingParams memory) {
         Token storage token = tokenMetadata[tokenId_];
 
         return (ERC20(token.underlyingToken), abi.decode(token.data, (VestingParams)));
     }
 
     /// @inheritdoc ILinearVesting
-    function getTokenVestingParams(uint256 tokenId_)
-        external
-        view
-        onlyValidTokenId(tokenId_)
-        returns (VestingParams memory)
-    {
+    function getTokenVestingParams(
+        uint256 tokenId_
+    ) external view onlyValidTokenId(tokenId_) returns (VestingParams memory) {
         return abi.decode(tokenMetadata[tokenId_].data, (VestingParams));
     }
 
@@ -538,11 +543,9 @@ contract LinearVesting is DerivativeModule, ILinearVesting, LinearVestingCard {
 
     /// @notice     Decodes the ABI-encoded `VestingParams` for a derivative token
     /// @dev        This function will revert if the parameters are not the correct length
-    function _decodeVestingParams(bytes memory params_)
-        internal
-        pure
-        returns (VestingParams memory)
-    {
+    function _decodeVestingParams(
+        bytes memory params_
+    ) internal pure returns (VestingParams memory) {
         if (params_.length != _VESTING_PARAMS_LEN) revert InvalidParams();
 
         return abi.decode(params_, (VestingParams));
@@ -668,13 +671,9 @@ contract LinearVesting is DerivativeModule, ILinearVesting, LinearVestingCard {
     /// @inheritdoc ERC6909Metadata
     /// @dev        This function reverts if:
     ///             - The token ID does not exist
-    function name(uint256 tokenId_)
-        public
-        view
-        override
-        onlyValidTokenId(tokenId_)
-        returns (string memory)
-    {
+    function name(
+        uint256 tokenId_
+    ) public view override onlyValidTokenId(tokenId_) returns (string memory) {
         // Get the token data
         (ERC20 underlyingToken, VestingParams memory data) = _getTokenMetadata(tokenId_);
 
@@ -685,13 +684,9 @@ contract LinearVesting is DerivativeModule, ILinearVesting, LinearVestingCard {
     /// @inheritdoc ERC6909Metadata
     /// @dev        This function reverts if:
     ///             - The token ID does not exist
-    function symbol(uint256 tokenId_)
-        public
-        view
-        override
-        onlyValidTokenId(tokenId_)
-        returns (string memory)
-    {
+    function symbol(
+        uint256 tokenId_
+    ) public view override onlyValidTokenId(tokenId_) returns (string memory) {
         // Get the token data
         (ERC20 underlyingToken, VestingParams memory data) = _getTokenMetadata(tokenId_);
 
@@ -702,13 +697,9 @@ contract LinearVesting is DerivativeModule, ILinearVesting, LinearVestingCard {
     /// @inheritdoc ERC6909Metadata
     /// @dev        This function reverts if:
     ///             - The token ID does not exist
-    function decimals(uint256 tokenId_)
-        public
-        view
-        override
-        onlyValidTokenId(tokenId_)
-        returns (uint8)
-    {
+    function decimals(
+        uint256 tokenId_
+    ) public view override onlyValidTokenId(tokenId_) returns (uint8) {
         // Get the token data
         (ERC20 underlyingToken,) = _getTokenMetadata(tokenId_);
 
@@ -720,13 +711,9 @@ contract LinearVesting is DerivativeModule, ILinearVesting, LinearVestingCard {
     /// @inheritdoc ERC6909Metadata
     /// @dev        This function reverts if:
     ///             - The token ID does not exist
-    function tokenURI(uint256 tokenId_)
-        public
-        view
-        override
-        onlyValidTokenId(tokenId_)
-        returns (string memory)
-    {
+    function tokenURI(
+        uint256 tokenId_
+    ) public view override onlyValidTokenId(tokenId_) returns (string memory) {
         // Get the token data
         (ERC20 underlyingToken, VestingParams memory data) = _getTokenMetadata(tokenId_);
 

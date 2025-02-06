@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 pragma solidity 0.8.19;
 
-import {ERC20} from "@solmate-6.7.0/tokens/ERC20.sol";
-import {SafeTransferLib} from "@solmate-6.7.0/utils/SafeTransferLib.sol";
+import {ERC20} from "@solmate-6.8.0/tokens/ERC20.sol";
+import {SafeTransferLib} from "@solmate-6.8.0/utils/SafeTransferLib.sol";
 import {IPermit2} from "./permit2/interfaces/IPermit2.sol";
 
 library Transfer {
@@ -166,11 +166,9 @@ library Transfer {
         }
     }
 
-    function decodePermit2Approval(bytes memory data_)
-        internal
-        pure
-        returns (Permit2Approval memory)
-    {
+    function decodePermit2Approval(
+        bytes memory data_
+    ) internal pure returns (Permit2Approval memory) {
         // If the length is 0, then approval is not provided
         if (data_.length == 0) {
             return Permit2Approval({nonce: 0, deadline: 0, signature: bytes("")});
