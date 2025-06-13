@@ -1,0 +1,20 @@
+{
+  "sequence": [
+    {
+      "name": "AtomicAuctionHouse"
+    },
+    {
+      "name": "AtomicCatalogue"
+    },
+    {
+      "name": "FixedPriceSale",
+      "installAtomicAuctionHouse": true,
+      "maxReferrerFee": 1000,
+      "maxCuratorFee": 1000
+    },
+    {
+      "name": "AtomicLinearVesting",
+      "installAtomicAuctionHouse": true
+    }
+  ]
+}

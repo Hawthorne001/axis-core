@@ -3,5 +3,9 @@
   "deployments.BatchCatalogue": "0x2B63Aa737a1AD617A6d6894698Abd043F95cCecb",
   "deployments.auctionModules.EncryptedMarginalPrice": "0x408fB738592232372069B592022F03BF3a241613",
   "deployments.auctionModules.FixedPriceBatch": "0xB4d895191fEE12aa5147D057fcFe720f7c0Dc76C",
-  "deployments.derivativeModules.BatchLinearVesting": "0x5C439EAa3F039Bac9Bf1ea4Eb6121d5767C63864"
+  "deployments.derivativeModules.BatchLinearVesting": "0x5C439EAa3F039Bac9Bf1ea4Eb6121d5767C63864",
+  "deployments.AtomicAuctionHouse": "0xAAaD42003E5383B32753F3d98FC9f33F02CaEd2d",
+  "deployments.AtomicCatalogue": "0xe1CC543891f1C75DeC28f6E751079236A1bee1e2",
+  "deployments.auctionModules.FixedPriceSale": "0x85c0A59A492C084d84eDcD7a8b785eaF620a9B0d",
+  "deployments.derivativeModules.AtomicLinearVesting": "0xF119eA6B28F9D97839DDF3d0Ad9daB3D97577de7"
 }

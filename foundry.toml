@@ -3,10 +3,12 @@ src = "src"
 out = "out"
 fs_permissions = [{access = "read-write", path = "./bytecode/"}, {access = "read", path = "./script/"}, {access = "read-write", path = "./deployments/"}]
 ffi = true
+script_execution_protection = false
 solc_version = "0.8.19"
 evm_version = "paris"
 optimizer = true
 optimizer_runs = 200
+libs = ["node_modules", "lib", "dependencies"]
 
 [fuzz]
 runs = 1024
